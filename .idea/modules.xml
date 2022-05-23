@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Simple_Banking_System.iml" filepath="$PROJECT_DIR$/.idea/modules/Simple_Banking_System.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Simple Banking System/task/Simple_Banking_System.Simple_Banking_System-task.iml" filepath="$PROJECT_DIR$/.idea/modules/Simple Banking System/task/Simple_Banking_System.Simple_Banking_System-task.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Simple Banking System/task/Simple_Banking_System.Simple_Banking_System-task.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Simple Banking System/task/Simple_Banking_System.Simple_Banking_System-task.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Simple Banking System/task/Simple_Banking_System.Simple_Banking_System-task.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Simple Banking System/task/Simple_Banking_System.Simple_Banking_System-task.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Topics/java.util.Arrays/Array sorting/Simple_Banking_System.Topics-java.util.Arrays-Array_sorting.iml" filepath="$PROJECT_DIR$/.idea/modules/Topics/java.util.Arrays/Array sorting/Simple_Banking_System.Topics-java.util.Arrays-Array_sorting.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Topics/java.util.Arrays/Array sorting/Simple_Banking_System.Topics-java.util.Arrays-Array_sorting.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Topics/java.util.Arrays/Array sorting/Simple_Banking_System.Topics-java.util.Arrays-Array_sorting.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Topics/java.util.Arrays/Array sorting/Simple_Banking_System.Topics-java.util.Arrays-Array_sorting.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Topics/java.util.Arrays/Array sorting/Simple_Banking_System.Topics-java.util.Arrays-Array_sorting.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Topics/java.util.Arrays/Copy the array range/Simple_Banking_System.Topics-java.util.Arrays-Copy_the_array_range.iml" filepath="$PROJECT_DIR$/.idea/modules/Topics/java.util.Arrays/Copy the array range/Simple_Banking_System.Topics-java.util.Arrays-Copy_the_array_range.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Topics/java.util.Arrays/Copy the array range/Simple_Banking_System.Topics-java.util.Arrays-Copy_the_array_range.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Topics/java.util.Arrays/Copy the array range/Simple_Banking_System.Topics-java.util.Arrays-Copy_the_array_range.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Topics/java.util.Arrays/Copy the array range/Simple_Banking_System.Topics-java.util.Arrays-Copy_the_array_range.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Topics/java.util.Arrays/Copy the array range/Simple_Banking_System.Topics-java.util.Arrays-Copy_the_array_range.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Topics/java.util.Arrays/Theory/Simple_Banking_System.Topics-java.util.Arrays-Theory.iml" filepath="$PROJECT_DIR$/.idea/modules/Topics/java.util.Arrays/Theory/Simple_Banking_System.Topics-java.util.Arrays-Theory.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Topics/java.util.Arrays/Theory/Simple_Banking_System.Topics-java.util.Arrays-Theory.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Topics/java.util.Arrays/Theory/Simple_Banking_System.Topics-java.util.Arrays-Theory.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Topics/java.util.Arrays/Theory/Simple_Banking_System.Topics-java.util.Arrays-Theory.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Topics/java.util.Arrays/Theory/Simple_Banking_System.Topics-java.util.Arrays-Theory.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/util/Simple_Banking_System.util.iml" filepath="$PROJECT_DIR$/.idea/modules/util/Simple_Banking_System.util.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/util/Simple_Banking_System.util.main.iml" filepath="$PROJECT_DIR$/.idea/modules/util/Simple_Banking_System.util.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/util/Simple_Banking_System.util.test.iml" filepath="$PROJECT_DIR$/.idea/modules/util/Simple_Banking_System.util.test.iml" />
+    </modules>
+  </component>
+</project>
