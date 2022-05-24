@@ -3,11 +3,15 @@ package banking;
 import java.util.Objects;
 import java.util.Scanner;
 
+import static banking.LuhnAlgorithm.checksum;
+
 public class CommandRunner {
     private CommandRunner() {
     }
 
     private static final Scanner scanner = new Scanner(System.in);
+    private static final int CARD_NUMBER_LENGTH = 16;
+    private static final int PIN_SIZE = 4;
 
     static void createAccount() {
         BankAccount newBankAccount = AccountBuilder.createNewAccount();
@@ -16,7 +20,7 @@ public class CommandRunner {
                 + newBankAccount.getCardNumber() + "\n"
                 + "Your card PIN:\n" + newBankAccount.getPin()
                 + "\n");
-        UI.showMainMenu();
+        CLI.printMainMenu();
     }
 
     static void logIn() {
@@ -36,30 +40,30 @@ public class CommandRunner {
 
         if (optBankAccount.isPresent()) {
             if (optBankAccount.get().getPin() == Integer.parseInt(pin)) {
-                UI.setSession(new Session(optBankAccount.get()));
+                CLI.setSession(new Session(optBankAccount.get()));
                 System.out.println("\nYou have successfully logged in!\n");
-                UI.showLoggedAccountInfoMenu();
+                CLI.printLoggedAccountInfoMenu();
             } else {
                 System.out.println("\nWrong card number or PIN!\n");
-                UI.showMainMenu();
+                CLI.printMainMenu();
             }
         } else {
             System.out.println("\nWrong card number or PIN!\n");
-            UI.showMainMenu();
+            CLI.printMainMenu();
         }
     }
 
-    static void showLoggedAccountInfo() {
-        if (Objects.nonNull(UI.getSession())) {
-            System.out.println("\nBalance: " + UI.getSession().getBankAccount().getBalance() + "\n");
+    static void printLoggedAccountInfo() {
+        if (Objects.nonNull(CLI.getSession())) {
+            System.out.println("\nBalance: " + CLI.getSession().getBankAccount().getBalance() + "\n");
         }
     }
 
     private static boolean isValidCardNumber(String inputCardNum) {
-        if (inputCardNum.length() == 16) {
+        if (inputCardNum.length() == CARD_NUMBER_LENGTH) {
             try {
                 Long.parseLong(inputCardNum);
-                return true;
+                return checksum(inputCardNum);
             } catch (NumberFormatException e) {
                 return false;
             }
@@ -68,7 +72,7 @@ public class CommandRunner {
     }
 
     private static boolean isValidPin(String inputPin) {
-        if (inputPin.length() == 4) {
+        if (inputPin.length() == PIN_SIZE) {
             try {
                 Integer.parseInt(inputPin);
                 return true;
@@ -80,8 +84,8 @@ public class CommandRunner {
     }
 
     static void logOut() {
-        UI.setSession(null);
+        CLI.setSession(null);
         System.out.println("\nYou have successfully logged out!\n");
-        UI.showMainMenu();
+        CLI.printMainMenu();
     }
 }

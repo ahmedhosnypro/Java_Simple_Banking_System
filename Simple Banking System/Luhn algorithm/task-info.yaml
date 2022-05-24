@@ -291,6 +291,329 @@ files:
         }
     }
   learner_created: false
+- name: src/banking/AccountsDataSet.java
+  visible: true
+  text: |-
+    package banking;
+
+    import java.util.*;
+
+    public class AccountsDataSet {
+        private final HashSet<BankAccount> accounts = new HashSet<>(); //card number, account
+
+        public Set<BankAccount> getAccountsList() {
+            return accounts;
+        }
+
+        public void addNewAccount(BankAccount newBankAccount) {
+            accounts.add(newBankAccount);
+        }
+    }
+  learner_created: true
+- name: src/banking/Session.java
+  visible: true
+  text: |
+    package banking;
+
+    public class Session {
+        private final BankAccount bankAccount;
+
+        public Session(BankAccount bankAccount) {
+            this.bankAccount = bankAccount;
+        }
+
+        public BankAccount getBankAccount() {
+            return bankAccount;
+        }
+    }
+  learner_created: true
+- name: src/banking/BankAccount.java
+  visible: true
+  text: |-
+    package banking;
+
+    public class BankAccount {
+        private final long cardNumber;
+        private final int pin;
+        private final long balance;
+
+        public BankAccount(long cardNumber, int pin) {
+            this.cardNumber = cardNumber;
+            this.pin = pin;
+            balance = 0;
+        }
+
+        public long getCardNumber() {
+            return cardNumber;
+        }
+
+
+        public int getPin() {
+            return pin;
+        }
+
+        public long getBalance() {
+            return balance;
+        }
+    }
+  learner_created: true
+- name: src/banking/BankSystem.java
+  visible: true
+  text: |
+    package banking;
+
+    public class BankSystem {
+        private BankSystem() {
+        }
+
+        private static final AccountsDataSet accountsDataSet = new AccountsDataSet();
+
+        public static AccountsDataSet getAccountsDataSet() {
+            return accountsDataSet;
+        }
+
+        public static void addNewAccount(BankAccount newBankAccount) {
+            accountsDataSet.addNewAccount(newBankAccount);
+        }
+    }
+  learner_created: true
+- name: src/banking/AccountBuilder.java
+  visible: true
+  text: |
+    package banking;
+
+    import java.util.Random;
+
+    public class AccountBuilder {
+        private AccountBuilder() {
+        }
+
+        private static final int PIN_SIZE = 4;
+        private static final int RANDOM_BOUND = 9;
+        private static final int BIN = 400000;
+        private static final int ACCOUNT_ID_LENGTH = 9; // for now, it contains checksum
+        static Random random = new Random();
+
+        public static BankAccount createNewAccount() {
+            BankAccount newAccount = new BankAccount(createNewCardNumber(), createRandomPin());
+            BankSystem.addNewAccount(newAccount);
+            return newAccount;
+        }
+
+        private static long createNewCardNumber() {
+            StringBuilder cardNumBuilder = new StringBuilder(String.valueOf(BIN));
+
+            for (int i = 0; i <= ACCOUNT_ID_LENGTH; i++) {
+                cardNumBuilder.append(random.nextInt(RANDOM_BOUND));
+            }
+
+            if (BankSystem.getAccountsDataSet().getAccountsList().stream()
+                    .anyMatch(b -> b.getCardNumber() == Long.parseLong(cardNumBuilder.toString()))) {
+                return createNewCardNumber();
+            }
+
+            return Long.parseLong(cardNumBuilder.toString());
+        }
+
+        private static int createRandomPin() {
+            StringBuilder accountBinBuilder = new StringBuilder();
+
+            for (int i = 0; i < PIN_SIZE; i++) {
+                accountBinBuilder.append(random.nextInt(RANDOM_BOUND));
+            }
+
+            return Integer.parseInt(accountBinBuilder.toString());
+        }
+    }
+  learner_created: true
+- name: src/banking/CommandRunner.java
+  visible: true
+  text: |
+    package banking;
+
+    import java.util.Objects;
+    import java.util.Scanner;
+
+    public class CommandRunner {
+        private CommandRunner() {
+        }
+
+        private static final Scanner scanner = new Scanner(System.in);
+
+        static void createAccount() {
+            BankAccount newBankAccount = AccountBuilder.createNewAccount();
+            System.out.println("\nYour card has been created\n"
+                    + "Your card number:\n"
+                    + newBankAccount.getCardNumber() + "\n"
+                    + "Your card PIN:\n" + newBankAccount.getPin()
+                    + "\n");
+            UI.showMainMenu();
+        }
+
+        static void logIn() {
+            System.out.println("\nEnter your card number:");
+            String cardNum = scanner.nextLine();
+            if (!isValidCardNumber(cardNum)) {
+                return;
+            }
+            System.out.println("Enter your PIN:");
+            String pin = scanner.nextLine();
+            if (!isValidPin(pin)) {
+                return;
+            }
+
+            var optBankAccount = BankSystem.getAccountsDataSet().getAccountsList().stream()
+                    .filter(b -> b.getCardNumber() == Long.parseLong(cardNum)).findFirst();
+
+            if (optBankAccount.isPresent()) {
+                if (optBankAccount.get().getPin() == Integer.parseInt(pin)) {
+                    UI.setSession(new Session(optBankAccount.get()));
+                    System.out.println("\nYou have successfully logged in!\n");
+                    UI.showLoggedAccountInfoMenu();
+                } else {
+                    System.out.println("\nWrong card number or PIN!\n");
+                    UI.showMainMenu();
+                }
+            } else {
+                System.out.println("\nWrong card number or PIN!\n");
+                UI.showMainMenu();
+            }
+        }
+
+        static void showLoggedAccountInfo() {
+            if (Objects.nonNull(UI.getSession())) {
+                System.out.println("\nBalance: " + UI.getSession().getBankAccount().getBalance() + "\n");
+            }
+        }
+
+        private static boolean isValidCardNumber(String inputCardNum) {
+            if (inputCardNum.length() == 16) {
+                try {
+                    Long.parseLong(inputCardNum);
+                    return true;
+                } catch (NumberFormatException e) {
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        private static boolean isValidPin(String inputPin) {
+            if (inputPin.length() == 4) {
+                try {
+                    Integer.parseInt(inputPin);
+                    return true;
+                } catch (NumberFormatException e) {
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        static void logOut() {
+            UI.setSession(null);
+            System.out.println("\nYou have successfully logged out!\n");
+            UI.showMainMenu();
+        }
+    }
+  learner_created: true
+- name: src/banking/CLI.java
+  visible: true
+  text: |-
+    package banking;
+
+    import java.util.Scanner;
+
+    public class UI {
+        private UI() {
+        }
+
+        private static final String MAIN_MENU = """
+                1. Create an account
+                2. Log into account
+                0. Exit
+                """;
+
+        private static final String ACCOUNT_INFO_MENU = """
+                1. Balance
+                2. Log out
+                0. Exit
+                """;
+        private static final String INPUT_ERROR_MSG = "Invalid choice";
+        private static final Scanner scanner = new Scanner(System.in);
+
+        private static Session session = null;
+
+        static void showMainMenu() {
+            System.out.println(MAIN_MENU);
+
+            String inputChoice = scanner.nextLine();
+
+            if (isNotValidChoice(inputChoice)) {
+                System.out.println(INPUT_ERROR_MSG);
+                showMainMenu();
+                return;
+            }
+
+            switch (Integer.parseInt(inputChoice)) {
+                case 1 -> CommandRunner.createAccount();
+                case 2 -> CommandRunner.logIn();
+                case 0 -> exit();
+                default -> throw new IllegalArgumentException();
+            }
+        }
+
+        static void showLoggedAccountInfoMenu() {
+            System.out.println(ACCOUNT_INFO_MENU);
+
+            String inputChoice = scanner.nextLine();
+
+            if (isNotValidChoice(inputChoice)) {
+                System.out.println(INPUT_ERROR_MSG);
+                showLoggedAccountInfoMenu();
+                return;
+            }
+
+            switch (Integer.parseInt(inputChoice)) {
+                case 1 -> {
+                    CommandRunner.showLoggedAccountInfo();
+                    showLoggedAccountInfoMenu();
+                }
+                case 2 -> CommandRunner.logOut();
+                case 0 -> exit();
+                default -> throw new IllegalArgumentException();
+            }
+        }
+
+        public static void setSession(Session session) {
+            UI.session = session;
+        }
+
+        public static Session getSession() {
+            return session;
+        }
+
+        private static boolean isNotValidChoice(String inputChoice) {
+            try {
+                Integer.parseInt(inputChoice);
+                return false;
+            } catch (NumberFormatException e) {
+                return true;
+            }
+        }
+
+        private static void exit() {
+            System.out.println("\nBye!");
+            System.exit(0);
+        }
+    }
+  learner_created: true
+- name: src/banking/LuhnAlgorithm.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/8426#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Tue, 24 May 2022 01:07:32 UTC
 record: -1
