@@ -42,17 +42,18 @@ public class AccountBuilder {
                 .anyMatch(b -> b.getCardNumber() == cardNumber);
     }
 
-    private static int createRandomPin() {
+    private static String createRandomPin() {
         StringBuilder accountBinBuilder = new StringBuilder();
 
-        for (int i = 0; i < PIN_SIZE; i++) {
+        int i = 0;
+        while (i < PIN_SIZE) {
             int randomNUm = random.nextInt(RANDOM_BOUND);
-            if (i == 0 && randomNUm == 0) {
-                continue;
+            if (!(i == 0 && randomNUm == 0)) {
+                accountBinBuilder.append(randomNUm);
+                i++;
             }
-            accountBinBuilder.append(randomNUm);
         }
 
-        return Integer.parseInt(accountBinBuilder.toString());
+        return accountBinBuilder.toString();
     }
 }

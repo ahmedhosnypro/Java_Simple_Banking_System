@@ -2,10 +2,10 @@ package banking;
 
 public class BankAccount {
     private final long cardNumber;
-    private final int pin;
+    private final String pin;
     private final long balance;
 
-    public BankAccount(long cardNumber, int pin) {
+    public BankAccount(long cardNumber, String pin) {
         this.cardNumber = cardNumber;
         this.pin = pin;
         balance = 0;
@@ -16,7 +16,7 @@ public class BankAccount {
     }
 
 
-    public int getPin() {
+    public String getPin() {
         return pin;
     }
 

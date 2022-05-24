@@ -12,5 +12,6 @@ public class BankSystem {
 
     public static void addNewAccount(BankAccount newBankAccount) {
         accountsDataSet.addNewAccount(newBankAccount);
+        BankDataManager.addNewAccount(newBankAccount);
     }
 }

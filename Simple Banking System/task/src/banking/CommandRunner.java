@@ -12,6 +12,7 @@ public class CommandRunner {
     private static final Scanner scanner = new Scanner(System.in);
     private static final int CARD_NUMBER_LENGTH = 16;
     private static final int PIN_SIZE = 4;
+    private static final String ERROR_MESSAGE = "\nWrong card number or PIN!\n";
 
     static void createAccount() {
         BankAccount newBankAccount = AccountBuilder.createNewAccount();
@@ -26,12 +27,13 @@ public class CommandRunner {
     static void logIn() {
         System.out.println("\nEnter your card number:");
         String cardNum = scanner.nextLine();
-        if (!isValidCardNumber(cardNum)) {
-            return;
-        }
+
         System.out.println("Enter your PIN:");
         String pin = scanner.nextLine();
-        if (!isValidPin(pin)) {
+
+        if (!isValidCardNumber(cardNum) || !isValidPin(pin)) {
+            System.out.println(ERROR_MESSAGE);
+            CLI.printMainMenu();
             return;
         }
 
@@ -39,16 +41,16 @@ public class CommandRunner {
                 .filter(b -> b.getCardNumber() == Long.parseLong(cardNum)).findFirst();
 
         if (optBankAccount.isPresent()) {
-            if (optBankAccount.get().getPin() == Integer.parseInt(pin)) {
+            if (optBankAccount.get().getPin().equals(pin)) {
                 CLI.setSession(new Session(optBankAccount.get()));
                 System.out.println("\nYou have successfully logged in!\n");
                 CLI.printLoggedAccountInfoMenu();
             } else {
-                System.out.println("\nWrong card number or PIN!\n");
+                System.out.println(ERROR_MESSAGE);
                 CLI.printMainMenu();
             }
         } else {
-            System.out.println("\nWrong card number or PIN!\n");
+            System.out.println(ERROR_MESSAGE);
             CLI.printMainMenu();
         }
     }

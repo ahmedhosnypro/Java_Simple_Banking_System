@@ -16,7 +16,7 @@ public class LuhnAlgorithm {
 
     static int createCardCheckSum(String cardNumBuilder) {
         int sum = sumLuhnDigits(cardNumBuilder);
-        return LUHN_MODULUS - sum % LUHN_MODULUS;
+        return sum % LUHN_MODULUS == 0 ? 0 : LUHN_MODULUS - sum % LUHN_MODULUS;
     }
 
     static boolean checksum(String inputCardNum) {
