@@ -13,17 +13,19 @@ public class CLI {
 
     private static final String ACCOUNT_INFO_MENU = """
             1. Balance
-            2. Log out
+            2. Add income
+            3. Do transfer
+            4. Close account
+            5. Log out
             0. Exit""";
     private static final String INPUT_ERROR_MSG = "Invalid choice";
     private static final Scanner scanner = new Scanner(System.in);
-
-    private static Session session = null;
 
     static void printMainMenu() {
         System.out.println(MAIN_MENU);
 
         String inputChoice = scanner.nextLine();
+        System.out.println();
 
         if (isNotValidChoice(inputChoice)) {
             System.out.println(INPUT_ERROR_MSG);
@@ -33,40 +35,39 @@ public class CLI {
 
         switch (Integer.parseInt(inputChoice)) {
             case 1 -> CommandRunner.createAccount();
-            case 2 -> CommandRunner.logIn();
+            case 2 -> CommandRunner.login();
             case 0 -> exit();
-            default -> throw new IllegalArgumentException();
+            default -> {
+                System.out.println("Invalid choice, try again!\n");
+                printMainMenu();
+            }
         }
     }
 
-    static void printLoggedAccountInfoMenu() {
+    static void printLoggedInMenu() {
         System.out.println(ACCOUNT_INFO_MENU);
 
         String inputChoice = scanner.nextLine();
+        System.out.println();
 
         if (isNotValidChoice(inputChoice)) {
             System.out.println(INPUT_ERROR_MSG);
-            printLoggedAccountInfoMenu();
+            printLoggedInMenu();
             return;
         }
 
         switch (Integer.parseInt(inputChoice)) {
-            case 1 -> {
-                CommandRunner.printLoggedAccountInfo();
-                printLoggedAccountInfoMenu();
-            }
-            case 2 -> CommandRunner.logOut();
+            case 1 -> CommandRunner.showBalance();
+            case 2 -> CommandRunner.addIncome();
+            case 3 -> CommandRunner.doTransfer();
+            case 4 -> CommandRunner.closeAccount();
+            case 5 -> CommandRunner.logOut();
             case 0 -> exit();
-            default -> throw new IllegalArgumentException();
+            default -> {
+                System.out.println("Invalid choice, try again!\n");
+                printLoggedInMenu();
+            }
         }
-    }
-
-    public static void setSession(Session session) {
-        CLI.session = session;
-    }
-
-    public static Session getSession() {
-        return session;
     }
 
     private static boolean isNotValidChoice(String inputChoice) {

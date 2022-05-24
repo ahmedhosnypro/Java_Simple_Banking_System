@@ -21,7 +21,11 @@ public class LuhnAlgorithm {
 
     static boolean checksum(String inputCardNum) {
         int checksum = inputCardNum.charAt(inputCardNum.length() - 1) - UTF_ZERO;
-        return checksum == 10 - (sumLuhnDigits(inputCardNum) % 10);
+        if (checksum == 0) {
+            return checksum == sumLuhnDigits(inputCardNum) % 10;
+        } else {
+            return checksum == 10 - sumLuhnDigits(inputCardNum) % 10;
+        }
     }
 
     private static int sumLuhnDigits(String cardNUm) {

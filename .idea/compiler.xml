@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="17" />
+    <bytecodeTargetLevel target="17">
+      <module name="Simple_Banking_System.Simple_Banking_System-task-build-classes-java.main" target="17" />
+      <module name="Simple_Banking_System.Simple_Banking_System-task-build-generated-sources-annotationProcessor-java.main" target="17" />
+      <module name="Simple_Banking_System.Simple_Banking_System-task-build-generated-sources-headers-java.main" target="17" />
+      <module name="Simple_Banking_System.Simple_Banking_System-task-build-reports-tests.main" target="17" />
+      <module name="Simple_Banking_System.Simple_Banking_System-task-build-test-results.main" target="17" />
+      <module name="Simple_Banking_System.Simple_Banking_System-task-build-tmp.main" target="17" />
+      <module name="Simple_Banking_System.Simple_Banking_System-task.main" target="17" />
+      <module name="Simple_Banking_System.Topics-java.util.Arrays-Array_sorting.main" target="17" />
+      <module name="Simple_Banking_System.Topics-java.util.Arrays-Copy_the_array_range.main" target="17" />
+      <module name="Simple_Banking_System.Topics-java.util.Arrays-Theory.main" target="17" />
+      <module name="Simple_Banking_System.util.main" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

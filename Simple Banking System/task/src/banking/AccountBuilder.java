@@ -15,12 +15,10 @@ public class AccountBuilder {
     static Random random = new Random();
 
     public static BankAccount createNewAccount() {
-        BankAccount newAccount = new BankAccount(createNewCardNumber(), createRandomPin());
-        BankSystem.addNewAccount(newAccount);
-        return newAccount;
+        return new BankAccount(createNewCardNumber(), createRandomPin());
     }
 
-    private static long createNewCardNumber() {
+    private static String createNewCardNumber() {
         StringBuilder cardNumBuilder = new StringBuilder(String.valueOf(BIN));
 
         for (int i = 0; i < ACCOUNT_ID_LENGTH; i++) {
@@ -29,17 +27,11 @@ public class AccountBuilder {
 
         cardNumBuilder.append(createCardCheckSum(cardNumBuilder.toString()));
 
-        if (isDuplicatedCardNumber(Long.parseLong(cardNumBuilder.toString()))) {
+        if (BankDataManager.isCardExists(cardNumBuilder.toString())) {
             return createNewCardNumber();
         }
 
-        return Long.parseLong(cardNumBuilder.toString());
-    }
-
-
-    private static boolean isDuplicatedCardNumber(long cardNumber) {
-        return BankSystem.getAccountsDataSet().getAccountsList().stream()
-                .anyMatch(b -> b.getCardNumber() == cardNumber);
+        return cardNumBuilder.toString();
     }
 
     private static String createRandomPin() {

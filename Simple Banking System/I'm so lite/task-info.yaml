@@ -1,25 +1,6 @@
 type: edu
 custom_name: stage3
 files:
-- name: src/banking/AccountsDataSet.java
-  visible: true
-  text: |-
-    package banking;
-
-    import java.util.*;
-
-    public class AccountsDataSet {
-        private final HashSet<BankAccount> accounts = new HashSet<>(); //card number, account
-
-        public Set<BankAccount> getAccountsList() {
-            return accounts;
-        }
-
-        public void addNewAccount(BankAccount newBankAccount) {
-            accounts.add(newBankAccount);
-        }
-    }
-  learner_created: true
 - name: src/banking/Session.java
   visible: true
   text: |
@@ -873,9 +854,28 @@ files:
 - name: card.s3db
   visible: true
   learner_created: true
+- name: src/banking/AccountsDataSet.java
+  visible: true
+  text: |-
+    package banking;
+
+    import java.util.*;
+
+    public class AccountsDataSet {
+        private final HashSet<BankAccount> accounts = new HashSet<>(); //card number, account
+
+        public Set<BankAccount> getAccountsList() {
+            return accounts;
+        }
+
+        public void addNewAccount(BankAccount newBankAccount) {
+            accounts.add(newBankAccount);
+        }
+    }
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/8427#comment
 status: Solved
 feedback:
   message: Congratulations!
   time: Tue, 24 May 2022 05:34:58 UTC
-record: -1
+record: 3
